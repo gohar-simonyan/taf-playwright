@@ -1,0 +1,32 @@
+{
+  "name": "taf-playwright",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test-ui": "npx playwright test --headed tests/ui/",
+    "test-api": "npx playwright test --headed tests/api/",
+    "lint": "npx eslint .",
+    "create-allure-report": "npx allure generate ./allure-results --clean",
+    "open-allure-report": "npx allure open ./allure-report"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@eslint/js": "^9.24.0",
+    "@playwright/test": "^1.51.1",
+    "@types/node": "^22.14.1",
+    "allure-playwright": "^3.2.1",
+    "eslint": "^9.24.0",
+    "eslint-config-prettier": "^10.1.2",
+    "jiti": "^2.4.2",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.29.1",
+    "winston": "^3.17.0"
+  },
+  "dependencies": {
+    "dotenv": "^16.5.0"
+  }
+}
