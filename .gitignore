@@ -1,12 +1,12 @@
 
 # Playwright
 node_modules/
-/test-results/
-/playwright-report/
-/blob-report/
-/playwright/.cache/
-/allure-report/
-/allure-results/
-.env
-/reports/
-.auth
+ui-tests/test-results/
+ui-tests/playwright-report/
+ui-tests/blob-report/
+ui-tests/playwright/.cache/
+ui-tests/allure-report/
+ui-tests/allure-results/
+ui-tests/.env
+ui-tests/reports/
+ui-tests/.auth
