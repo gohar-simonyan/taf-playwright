@@ -10,7 +10,7 @@ on:
 
 jobs:
   build-and-test:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
@@ -21,6 +21,9 @@ jobs:
         with:
           node-version: '20'
           cache: 'npm'
+
+      - name: Clean NPM cache
+        run: npm cache clean --force
 
       - name: Install dependencies
         run: npm install
