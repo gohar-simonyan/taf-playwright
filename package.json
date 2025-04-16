@@ -5,8 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test-ui": "npx playwright test --headed tests/ui/",
-    "test-api": "npx playwright test --headed tests/api/",
+    "test": "npx playwright test --headed",
     "lint": "npx eslint .",
     "create-allure-report": "npx allure generate ./allure-results --clean",
     "open-allure-report": "npx allure open ./allure-report"

@@ -16,6 +16,18 @@ export default tseslint.config(
             'no-unused-vars': 'warn',
             quotes: ['error', 'single'],
             'no-console': 'error',
+            'max-len': [
+                'error',
+                140,
+                2,
+                {
+                    ignoreUrls: true,
+                    ignoreComments: false,
+                    ignoreRegExpLiterals: true,
+                    ignoreStrings: true,
+                    ignoreTemplateLiterals: true
+                }
+            ]
         },
     },
 );
