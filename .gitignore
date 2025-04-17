@@ -10,3 +10,4 @@ ui-tests/allure-results/
 ui-tests/.env
 ui-tests/reports/
 ui-tests/.auth
+api-tests/.env
