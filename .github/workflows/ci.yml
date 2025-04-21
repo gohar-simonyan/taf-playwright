@@ -32,7 +32,7 @@ jobs:
             npm install --package-lock-only
           fi
           npm ci
-        working-directory: src/${{ matrix.test-suite }}
+        working-directory: ${{ matrix.test-suite }}
 
       - name: Run Tests
         run: |
@@ -41,4 +41,4 @@ jobs:
           elif [ "${{ matrix.test-suite }}" == "api-tests" ]; then
             npx mocha
           fi
-        working-directory: src/${{ matrix.test-suite }}
+        working-directory: ${{ matrix.test-suite }}
