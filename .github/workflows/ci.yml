@@ -24,18 +24,14 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 20
-          cache: npm
 
       - name: Install Dependencies
         run: |
-          ls -la
-          echo "Installing dependencies in ${{ matrix.test-suite }}"
           npm ci
         working-directory: ${{ matrix.test-suite }}
 
       - name: Run Tests
         run: |
-          echo "Running tests in ${{ matrix.test-suite }}"
           if [ "${{ matrix.test-suite }}" == "ui-tests" ]; then
             npx playwright install --with-deps
             npx playwright test
