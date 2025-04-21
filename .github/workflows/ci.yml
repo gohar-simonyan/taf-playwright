@@ -1,0 +1,40 @@
+name: Build and Test Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        test-suite: [ui-tests, api-tests]
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set Up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm install
+        working-directory: src/${{ matrix.test-suite }}
+
+      - name: Run Tests
+        run: |
+          if [ "${{ matrix.test-suite }}" == "ui-tests" ]; then
+            npx playwright install --with-deps && npx playwright test
+          elif [ "${{ matrix.test-suite }}" == "api-tests" ]; then
+            npx mocha
+          fi
+        working-directory: src/${{ matrix.test-suite }}
