@@ -31,6 +31,14 @@ jobs:
         working-directory: ${{ matrix.test-suite }}
 
       - name: Run Tests
+        env:
+          API_BASE_URL: ${{ secrets.API_BASE_URL }}
+          API_TOKEN: ${{ secrets.API_TOKEN }}
+          PROJECT_NAME: ${{ secrets.PROJECT_NAME }}
+          BASE_URL: ${{ secrets.BASE_URL }}
+          USER_NAME: ${{ secrets.USER_NAME }}
+          PASSWORD: ${{ secrets.PASSWORD }}
+          BASE_USER: ${{ secrets.BASE_USER }}
         run: |
           if [ "${{ matrix.test-suite }}" == "ui-tests" ]; then
             npx playwright install --with-deps
