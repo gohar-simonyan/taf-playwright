@@ -1,14 +1,12 @@
 import { Page } from '@playwright/test';
 
 export class DashboardPage {
-    readonly page: Page;
-    constructor(page: Page) {
-        this.page = page;
-    }
+
+    constructor(readonly page: Page) {}
 
     get elements() {
         return {
-            title: this.page.locator('[title="All Dashboards"]'),
+            title: this.page.getByTitle('All Dashboards'),
         };
     }
 }

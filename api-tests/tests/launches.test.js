@@ -1,19 +1,19 @@
-import { expect } from "chai";
-import ApiClient from '../helpers/apiClient';
-import {validateSchema} from "../utils/schemaValidator";
-import {launchSchema} from "../schemas/launch.schema";
+import { expect } from 'chai';
+import ApiClient from '../helpers/apiClient.js';
+import {validateSchema} from '../utils/schemaValidator.js';
+import {launchSchema} from '../schemas/launch.schema.js';
 
-describe('Check launch apis', () => {
+describe('Check launch apis', function() {
     let apiClient;
 
-    before(() => {
+    before(function() {
         apiClient = new ApiClient();
     });
 
     it('Check launch schema', async function() {
         const response = await apiClient.get('launch');
-        const isValid = validateSchema(response.data, launchSchema)
-        expect(isValid).to.equal(true);
-    })
-})
+        const errors = validateSchema(response.data, launchSchema);
+        expect(errors).to.deep.equal([]);
+    });
+});
 

@@ -1,16 +1,12 @@
 import { Page } from '@playwright/test';
 export class LaunchesPage {
-    readonly page: Page;
     readonly url: string = 'launches/all';
 
-    constructor(page: Page) {
-        this.page = page;
-    }
+    constructor(readonly page: Page) {}
 
     get elements() {
         return {
-            tableHeader: this.page.locator('[class="gridHeader__grid-header--KArbb"]'),
-            columnTitles: this.page.locator('[class="gridHeader__grid-header--KArbb"]>div')
+            columnTitles: this.page.locator('.gridHeader__grid-header--KArbb>div')
         };
     }
 

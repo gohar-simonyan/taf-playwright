@@ -1,9 +1,9 @@
 import { test as baseTest } from '@playwright/test';
 import fs from 'fs';
 import path from 'path';
-import {LoginPage} from "../page-objects/login.page";
-import { LaunchesPage } from "../page-objects/launches.page";
-import { DashboardPage } from "../page-objects/dashboard.page";
+import {LoginPage} from '../page-objects/login.page';
+import { LaunchesPage } from '../page-objects/launches.page';
+import { DashboardPage } from '../page-objects/dashboard.page';
 
 type PlaywrightTestFixtures = {
     launchesPage: LaunchesPage;
@@ -18,7 +18,7 @@ const test = baseTest.extend<PlaywrightTestFixtures, { workerStorageState: strin
     storageState: ({ workerStorageState }, use) => use(workerStorageState),
 
     workerStorageState: [async ({ browser }, use) => {
-        const fileName = path.resolve(test.info().project.outputDir, `.auth.json`);
+        const fileName = path.resolve(test.info().project.outputDir, '.auth.json');
 
         if (fs.existsSync(fileName)) {
             await use(fileName);

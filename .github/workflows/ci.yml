@@ -36,6 +36,6 @@ jobs:
             npx playwright install --with-deps
             npx playwright test
           elif [ "${{ matrix.test-suite }}" == "api-tests" ]; then
-            npx mocha
+            npx mocha tests/**/*.test.js
           fi
         working-directory: ${{ matrix.test-suite }}

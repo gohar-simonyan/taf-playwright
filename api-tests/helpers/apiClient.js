@@ -1,5 +1,6 @@
-import axios from "axios";
-import {config} from "../config/environments";
+import axios from 'axios';
+import {config} from '../config/environments.js';
+import {handleAxiosError} from '../utils/handleErrors.js';
 
 export default class ApiClient {
     constructor() {
@@ -15,15 +16,15 @@ export default class ApiClient {
         try {
             return await this.client.get(path);
         } catch (error) {
-            throw error;
-        }
+            handleAxiosError(error);
+            }
     }
 
     async post(path, body) {
         try {
             return await this.client.post(path, body);
         } catch (error) {
-            throw error;
+            handleAxiosError(error);
         }
     }
 
@@ -31,7 +32,7 @@ export default class ApiClient {
         try {
             return await this.client.put(path, body);
         } catch (error) {
-            throw error;
+            handleAxiosError(error);
         }
     }
 
@@ -39,7 +40,7 @@ export default class ApiClient {
         try {
             return await this.client.delete(path);
         } catch (error) {
-            throw error;
+            handleAxiosError(error);
         }
     }
 }

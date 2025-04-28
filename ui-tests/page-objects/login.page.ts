@@ -1,17 +1,14 @@
 import { Page } from '@playwright/test';
 export class LoginPage {
-    readonly page: Page;
     readonly url: string = '#login';
 
-    constructor(page: Page) {
-        this.page = page;
-    }
+    constructor(readonly page: Page) {}
 
     get elements() {
         return {
-            loginInputField: this.page.locator( '[placeholder="Login"]'),
-            passwordInputField: this.page.locator( '[placeholder="Password"]'),
-            loginButton: this.page.locator( '[class="loginForm__login-button-container--KT9g6"]>button'),
+            loginInputField: this.page.getByPlaceholder( 'Login'),
+            passwordInputField: this.page.getByPlaceholder( 'Password'),
+            loginButton: this.page.getByRole('button', { name: 'Login', exact: true }),
         };
     }
 
