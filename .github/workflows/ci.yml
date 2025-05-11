@@ -36,9 +36,12 @@ jobs:
           API_TOKEN: ${{ secrets.API_TOKEN }}
           PROJECT_NAME: ${{ secrets.PROJECT_NAME }}
           BASE_URL: ${{ secrets.BASE_URL }}
-          USER_NAME: ${{ secrets.USER_NAME }}
-          PASSWORD: ${{ secrets.PASSWORD }}
-          BASE_USER: ${{ secrets.BASE_USER }}
+          USER_NAME_0: ${{ secrets.USER_NAME_0 }}
+          PASSWORD_0: ${{ secrets.PASSWORD_0 }}
+          BASE_USER_0: ${{ secrets.BASE_USER_0 }}
+          USER_NAME_1: ${{ secrets.USER_NAME_1 }}
+          PASSWORD_1: ${{ secrets.PASSWORD_1 }}
+          BASE_USER_1: ${{ secrets.BASE_USER_1 }}
         run: |
           if [ "${{ matrix.test-suite }}" == "ui-tests" ]; then
             npx playwright install --with-deps
