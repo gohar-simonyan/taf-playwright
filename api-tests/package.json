@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "test-ts": "mocha --require ts-node/register tests/**/*.test.ts",
-    "test": "mocha  tests/**/*.test.js",
+    "test": "mocha --parallel tests/**/*.test.js",
     "lint": "npx eslint ."
   },
   "keywords": [],

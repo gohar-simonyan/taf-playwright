@@ -15,5 +15,25 @@ describe('Check launch apis', function() {
         const errors = validateSchema(response.data, launchSchema);
         expect(errors).to.deep.equal([]);
     });
+
+    it('Check updating launch functionality', async function() {
+        const launches = await apiClient.get('launch');
+        const launchId = launches.data.content[0].id;
+        const body = {
+            'description': 'test launch description',
+        };
+        await apiClient.put(`launch/${launchId}/update`, body);
+        const updatedLaunch = await apiClient.get(`launch/${launchId}`);
+        expect(updatedLaunch.data.description).to.equal(body.description);
+    });
+
+    it('Check deleting launch functionality', async function() {
+        const launches = await apiClient.get('launch');
+        const launchId = launches.data.content[0].id;
+        await apiClient.delete(`launch/${launchId}`);
+        const updatedLaunches = await apiClient.get('launch');
+        const ids = updatedLaunches.data.content.map((obj) => obj.id);
+        expect(ids).to.not.include(launchId);
+    });
 });
 
