@@ -4,9 +4,7 @@ export class DashboardPage {
 
     constructor(readonly page: Page) {}
 
-    get elements() {
-        return {
-            title: this.page.getByTitle('All Dashboards'),
-        };
+    get title() {
+        return this.page.getByTitle('All Dashboards');
     }
 }

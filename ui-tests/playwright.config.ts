@@ -14,6 +14,7 @@ export default defineConfig({
     ['allure-playwright'],
   ],
   use: {
+    baseURL: process.env.BASE_URL,
     screenshot: 'only-on-failure',
     trace: 'retain-on-failure',
   },

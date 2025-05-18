@@ -12,8 +12,7 @@ type PlaywrightTestFixtures = {
 
 const test = baseTest.extend<PlaywrightTestFixtures, { workerStorageState: string }>({
     launchesPage: async ({ page }, use) => {
-        const id = test.info().parallelIndex;
-        const launchesPage = new LaunchesPage(page, id);
+        const launchesPage = new LaunchesPage(page);
         await use(launchesPage);
     },
     storageState: ({ workerStorageState }, use) => use(workerStorageState),
@@ -29,12 +28,12 @@ const test = baseTest.extend<PlaywrightTestFixtures, { workerStorageState: strin
 
         const account = await acquireAccount(id);
 
-        const page = await browser.newPage({ storageState: undefined });
+        const page = await browser.newPage({ storageState: undefined, baseURL: process.env.BASE_URL });
         const loginPage = new LoginPage(page);
         const dashboardPage = new DashboardPage(page);
         await loginPage.openPage();
         await loginPage.login({ username: account.username, password: account.password });
-        await dashboardPage.elements.title.waitFor({state: 'visible'});
+        await dashboardPage.title.waitFor({state: 'visible'});
         await page.context().storageState({ path: fileName });
         await page.close();
         await use(fileName);
