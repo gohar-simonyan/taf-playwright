@@ -5,9 +5,13 @@ import {LoginPage} from '../page-objects/login.page';
 import { LaunchesPage } from '../page-objects/launches.page';
 import { DashboardPage } from '../page-objects/dashboard.page';
 import { acquireAccount } from '../utils/accounts';
+import { Context, Step, StepFn } from '../types';
 
 type PlaywrightTestFixtures = {
     launchesPage: LaunchesPage;
+    ctx: Context;
+    step: Step;
+    shared: Record<string, any>
 };
 
 const test = baseTest.extend<PlaywrightTestFixtures, { workerStorageState: string }>({
@@ -15,6 +19,24 @@ const test = baseTest.extend<PlaywrightTestFixtures, { workerStorageState: strin
         const launchesPage = new LaunchesPage(page);
         await use(launchesPage);
     },
+
+    ctx: async ({ page }, use) => {
+        const ctx: Context = {
+            loginPage: new LoginPage(page),
+            launchesPage: new LaunchesPage(page),
+            dashboardPage: new DashboardPage(page),
+            shared: {},
+        };
+        await use(ctx);
+    },
+
+    step: async ({ page, ctx }, use) => {
+        await use(async (description: string, fn: StepFn) => {
+            await baseTest.step(description, async () => await fn({ page, ctx }));
+        });
+    },
+
+
     storageState: ({ workerStorageState }, use) => use(workerStorageState),
 
     workerStorageState: [async ({ browser }, use) => {

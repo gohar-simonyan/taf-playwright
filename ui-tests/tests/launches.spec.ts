@@ -1,32 +1,29 @@
-import { expect } from '@playwright/test';
 import test from '../fixtures/fixture';
-import { launchesTableTitles } from '../test-data/test-data';
+import { Given, When, Then, And } from '../steps/gherkin';
 
 test.describe('Check Ui', () => {
-    test.beforeEach(async ({launchesPage}) => {
-        await launchesPage.openPage();
+    test.beforeEach(async ({step}) => {
+        await Given(step, 'I navigate to Launches page');
     });
 
-    test('Check table columns names', async ({launchesPage}) => {
-        await expect(launchesPage.columnTitles).toHaveText(launchesTableTitles, {useInnerText: true});
+    test('Check table columns names', async ({step}) => {
+        await Then(step, 'I expect columnTitles collection to equal launchesTableTitles data');
     });
 
-    test('Check removing launch functionality', async ({launchesPage}) => {
-        const launchName = await launchesPage.launchItemNames.first().textContent();
-        await launchesPage.hamburgerMenu.first().click();
-        await launchesPage.deleteOption.nth(1).click();
-        await launchesPage.deleteSubmitButton.click();
-        await launchesPage.reload();
-        await expect(
-            launchesPage.launchItemNames.filter({ hasText: launchName })
-        ).toHaveCount(0);
+    test('Check removing launch functionality', async ({step}) => {
+        await When(step, 'I get launchItemNames element text and save as launchName');
+        await And(step, 'I click on hamburgerMenu element by index 0');
+        await And(step, 'I click on deleteOption element by index 1');
+        await And(step, 'I click on deleteSubmitButton element');
+        await And(step, 'I reload Launches page');
+        await Then(step, 'launchItemNames collection should not include launchName member');
     });
 
-    test('Check comparing launches functionality', async ({launchesPage}) => {
-        await launchesPage.launchItemCheckboxes.nth(1).click();
-        await launchesPage.launchItemCheckboxes.nth(2).click();
-        await launchesPage.actionsButton.click();
-        await launchesPage.compareOption.click();
-        await expect (launchesPage.diagram).toBeVisible();
+    test('Check comparing launches functionality', async ({step}) => {
+        await When(step, 'I click on launchItemCheckboxes element by index 1');
+        await And(step, 'I click on launchItemCheckboxes element by index 2');
+        await And(step, 'I click on actionsButton element');
+        await And(step, 'I click on compareOption element');
+        await Then(step, 'I expect diagram element to be visible');
     });
 });
