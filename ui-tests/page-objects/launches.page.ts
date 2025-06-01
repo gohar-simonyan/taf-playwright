@@ -1,7 +1,8 @@
 import { Page } from '@playwright/test';
 import {getParallelBaseUrl} from '../utils/urlHelper';
+import { PageObject } from '../types';
 
-export class LaunchesPage {
+export class LaunchesPage implements PageObject {
     readonly url: string = getParallelBaseUrl('launches/all');
 
     constructor(readonly page: Page) {}

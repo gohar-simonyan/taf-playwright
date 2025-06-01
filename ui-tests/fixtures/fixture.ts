@@ -5,16 +5,9 @@ import {LoginPage} from '../page-objects/login.page';
 import { LaunchesPage } from '../page-objects/launches.page';
 import { DashboardPage } from '../page-objects/dashboard.page';
 import { acquireAccount } from '../utils/accounts';
-import { Context, Step, StepFn } from '../types';
+import {Context, Fixtures, StepFn} from '../types';
 
-type PlaywrightTestFixtures = {
-    launchesPage: LaunchesPage;
-    ctx: Context;
-    step: Step;
-    shared: Record<string, any>
-};
-
-const test = baseTest.extend<PlaywrightTestFixtures, { workerStorageState: string }>({
+const test = baseTest.extend<Fixtures, { workerStorageState: string }>({
     launchesPage: async ({ page }, use) => {
         const launchesPage = new LaunchesPage(page);
         await use(launchesPage);

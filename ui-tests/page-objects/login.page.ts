@@ -1,5 +1,7 @@
 import { Page } from '@playwright/test';
-export class LoginPage {
+import { PageObject } from '../types';
+
+export class LoginPage implements PageObject {
     readonly url: string = '#login';
 
     constructor(readonly page: Page) {}

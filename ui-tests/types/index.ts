@@ -12,11 +12,14 @@ export type StepFn<TParams extends Record<string, any> = Record<string, any>> = 
 
 export type Step = (description: string, fn: StepFn) => Promise<void>;
 
+export interface PageObject {
+    readonly url: string;
+    openPage(): Promise<void>;
+}
+
 export type Fixtures = {
     ctx: Context;
     step: Step;
-};
-
-export interface PageObject {
-    open(): Promise<void>;
+    shared: Record<string, any>,
+    [key: string]: any;
 }
