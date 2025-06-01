@@ -1,55 +1,49 @@
 import ApiClient from '../helpers/apiClient.js';
-import logger from '../utils/logger.js';
 import {compile} from 'path-to-regexp';
+import {isEmpty} from '../utils/launches.js';
 
 export default class LaunchesClient {
-    getLaunchByIdEndpoint = compile('launch/:launchId');
-    updateLaunchEndpoint = compile('launch/:launchId/update');
+    get = compile('launch/:launchId');
+    update = compile('launch/:launchId/update');
 
     constructor() {
         this.apiClient = new ApiClient();
+        this.demoApiClient = new ApiClient(true);
+    }
+
+    async generateLaunches() {
+        await this.demoApiClient.post('generate', {
+            createDashboard: false
+        });
     }
 
     async getLaunches() {
         const launches = await this.apiClient.get('launch');
-        if(this.checkLaunchesIsEmpty(launches)) {
-            logger.error('Launches not found');
-            return;
+        if(isEmpty(launches)) {
+            throw new Error('Launches not found');
         } return launches;
     }
 
     async getLaunchById(launchId) {
-        return await this.apiClient.get(this.getLaunchByIdEndpoint({ launchId }));
+        return await this.apiClient.get(this.get({ launchId }));
     }
 
     async updateLaunch(launchId, body) {
-        await this.apiClient.put(this.updateLaunchEndpoint({ launchId }), body);
+        await this.apiClient.put(this.update({ launchId }), body);
     }
 
     async deleteLaunchById(launchId) {
-        await this.apiClient.delete(this.getLaunchByIdEndpoint({ launchId }));
+        await this.apiClient.delete(this.get({ launchId }));
     }
 
     getLaunchIds(launches) {
-        if(this.checkLaunchesIsEmpty(launches)) {
-            logger.error('Launches is empty');
-            return;
-        }
-        return launches.data.content.map((obj) => obj.id);
+        return launches?.data?.content?.map((obj) => obj.id);
     }
 
     getLaunchIdByIndex(launches, index) {
-        if(this.checkLaunchesIsEmpty(launches)) {
-            logger.error('Launches is empty');
-            return;
-        } else if(index > launches.data.content.length) {
-            logger.error('Launch id is not valid');
-            return;
+        if(launches.data.content[index]) {
+            return launches.data.content[index]?.id.toString();
         }
-        return launches.data.content[index].id.toString();
+        throw new Error('Index is not valid');
     }
-
-     checkLaunchesIsEmpty(launches) {
-         return Array.isArray(launches.data.content) && launches.data.content.length === 0;
-     }
 }

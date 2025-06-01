@@ -3,9 +3,9 @@ import {config} from '../config/environments.js';
 import {handleAxiosError} from '../utils/handleErrors.js';
 
 export default class ApiClient {
-    constructor() {
+    constructor(useDemo = false) {
         this.client = axios.create({
-            baseURL: `${config.BASE_URL}${config.PROJECT_NAME}`,
+            baseURL: useDemo ? `${config.BASE_URL}demo/${config.PROJECT_NAME}` : `${config.BASE_URL}${config.PROJECT_NAME}`,
             headers: {
                 Authorization: `Bearer ${config.TOKEN}`
             },
@@ -17,7 +17,7 @@ export default class ApiClient {
             return await this.client.get(path);
         } catch (error) {
             handleAxiosError(error);
-            }
+        }
     }
 
     async post(path, body) {

@@ -8,9 +8,11 @@ describe('Check launch apis', function() {
     let apiClient;
     let launchesClient;
 
-    before(function() {
+    before(async function() {
+        this.timeout(20000);
         apiClient = new ApiClient();
         launchesClient = new LaunchesClient(apiClient);
+        await launchesClient.generateLaunches();
     });
 
     it('Check launch schema', async function() {

@@ -11,7 +11,7 @@ export class LaunchesPage {
     }
 
     get launchItemNames() {
-        return this.page.locator('.itemInfo__item-info--K7BYP:not([style]) > .itemInfo__main-info--uYMpQ');
+         return this.page.getByRole('cell').getByRole('link');
     }
 
     get launchItemCheckboxes() {
