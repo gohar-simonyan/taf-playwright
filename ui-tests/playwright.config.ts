@@ -8,12 +8,13 @@ export default defineConfig({
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
-  workers: process.env.CI ? 1 : undefined,
+  workers: 2,
   reporter: [
     ['html', { outputFolder: 'reports' },],
     ['allure-playwright'],
   ],
   use: {
+    baseURL: process.env.BASE_URL,
     screenshot: 'only-on-failure',
     trace: 'retain-on-failure',
   },
