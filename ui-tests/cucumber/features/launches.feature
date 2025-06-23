@@ -3,12 +3,12 @@ Feature: Launches
     Given I navigate to "Launches" page
 
   Scenario: As a user I should see column names
-    Then "columnTitles" collection should equal "launchesTableTitles" data
+    Then "Column Titles" collection should equal "launchesTableTitles" data
 
   Scenario: As a user I should be able to remove launch
-    When I get "launchItemNames" element text and save as "launchName"
-      And I click on "hamburgerMenu" element by index 0
-      And I click on "deleteOption" element by index 1
-      And I click on "deleteSubmitButton" element
+    When I get "Launch Item Names" element text and save as "launchName"
+      And I click on "first" "Hamburger Menu" element
+      And I click on "second" "Delete Option" element
+      And I click on "Delete Submit Button" element
       And I reload "Launches" page
-    Then "launchItemNames" collection should not include "launchName" member
+    Then "Launch Item Names" collection should not include "launchName" member
