@@ -1,4 +1,5 @@
 import ApiClient from '../helpers/apiClient.js';
+import ApiClientFetch from '../helpers/apiClientFetch.js';
 import {compile} from 'path-to-regexp';
 import {isEmpty} from '../utils/launches.js';
 
@@ -8,6 +9,7 @@ export default class LaunchesClient {
 
     constructor() {
         this.apiClient = new ApiClient();
+        this.apiClientfetch = new ApiClientFetch();
         this.demoApiClient = new ApiClient(true);
     }
 
@@ -19,6 +21,13 @@ export default class LaunchesClient {
 
     async getLaunches() {
         const launches = await this.apiClient.get('launch');
+        if(isEmpty(launches)) {
+            throw new Error('Launches not found');
+        } return launches;
+    }
+
+    async getLaunchesFetch() {
+        const launches = await this.apiClientfetch.get('launch');
         if(isEmpty(launches)) {
             throw new Error('Launches not found');
         } return launches;

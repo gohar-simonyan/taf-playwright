@@ -15,6 +15,12 @@ describe('Check launch apis', function() {
         await launchesClient.generateLaunches();
     });
 
+    it('Check launch schema using fetch api client', async function() {
+        const response = await launchesClient.getLaunchesFetch();
+        const errors = validateSchema(response.data, launchSchema);
+        expect(errors).to.deep.equal([]);
+    });
+
     it('Check launch schema', async function() {
         const response = await launchesClient.getLaunches();
         const errors = validateSchema(response.data, launchSchema);
