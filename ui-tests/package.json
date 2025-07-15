@@ -15,21 +15,19 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@cucumber/cucumber": "^12.0.0",
     "@eslint/js": "^9.24.0",
     "@playwright/test": "^1.51.1",
     "@types/node": "^22.15.30",
     "allure-playwright": "^3.2.1",
+    "dotenv": "^17.2.0",
     "eslint": "^9.24.0",
     "eslint-config-prettier": "^10.1.2",
     "jiti": "^2.4.2",
+    "playwright": "^1.54.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.29.1",
     "winston": "^3.17.0"
-  },
-  "dependencies": {
-    "@cucumber/cucumber": "^11.3.0",
-    "dotenv": "^16.5.0",
-    "playwright": "^1.52.0"
   }
 }
