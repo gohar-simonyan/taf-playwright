@@ -1,3 +1,5 @@
 export function isEmpty(launches) {
-    return launches.page.totalElements === 0;
+    return launches.data
+        ? launches.data.page.totalElements === 0
+        : launches.page.totalElements === 0;
 }

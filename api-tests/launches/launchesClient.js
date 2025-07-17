@@ -7,9 +7,9 @@ export default class LaunchesClient {
     update = compile('launch/:launchId/update');
 
     constructor() {
-        this.apiClient = new ApiFactory.getApiInstance('axios');
-        this.apiClientfetch = new ApiFactory.getApiInstance('fetch');
-        this.demoApiClient = new ApiFactory.getApiInstance('demo');
+        this.apiClient = ApiFactory.getApiInstance('axios');
+        this.apiClientfetch = ApiFactory.getApiInstance('fetch');
+        this.demoApiClient = ApiFactory.getApiInstance('demo');
     }
 
     async generateLaunches() {
