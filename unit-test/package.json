@@ -6,7 +6,8 @@
   "scripts": {
     "test": "npx jest ./src/tests/test/*.js",
     "start-server": "node ./src/server/server.js",
-    "eslint": "eslint ./"
+    "eslint": "eslint ./",
+    "coverage": "nyc npm run test"
   },
   "repository": {
     "type": "git",
