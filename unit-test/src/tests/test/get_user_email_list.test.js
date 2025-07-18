@@ -1,13 +1,13 @@
-const axios = require('axios');
 const UserDataHandler = require('../../data_handlers/user_data_handler');
-
-jest.mock('axios');
+const MockServer = require('../mock_server/mock_server');
 
 describe('UserDataHandler.getUserEmailsList', () => {
     let userDataHandler;
+    let mockServer;
 
     beforeEach(() => {
         userDataHandler = new UserDataHandler();
+        mockServer = new MockServer();
     });
 
     it('Should return a semicolon-separated list of user emails when users array is populated', async () => {
@@ -16,22 +16,21 @@ describe('UserDataHandler.getUserEmailsList', () => {
             { email: 'user2@test.com' },
             { email: 'user3@test.com' },
         ];
-        axios.get.mockResolvedValueOnce({ data: mockUsers });
+        mockServer.mockGet(200, mockUsers);
         await userDataHandler.loadUsers();
         const emailList = userDataHandler.getUserEmailsList();
         expect(emailList).toBe('user1@test.com;user2@test.com;user3@test.com');
     });
 
     it('Should throw an error if no users are loaded', async () => {
-        const mockUsers = [];
-        axios.get.mockResolvedValueOnce({ data: mockUsers });
+        mockServer.mockGet(200, []);
         await userDataHandler.loadUsers();
         expect(() => userDataHandler.getUserEmailsList()).toThrow('No users loaded!');
     });
 
     it('Should return a single email when there is only one user in the array', async () => {
         const mockUsers = [{ email: 'singleuser@test.com' }];
-        axios.get.mockResolvedValueOnce({ data: mockUsers });
+        mockServer.mockGet(200, mockUsers);
         await userDataHandler.loadUsers();
         const emailList = userDataHandler.getUserEmailsList();
         expect(emailList).toBe('singleuser@test.com');
@@ -43,7 +42,7 @@ describe('UserDataHandler.getUserEmailsList', () => {
             { name: 'User Without Email' },
             { email: 'user3@test.com' },
         ];
-        axios.get.mockResolvedValueOnce({ data: mockUsers });
+        mockServer.mockGet(200, mockUsers);
         await userDataHandler.loadUsers();
         const emailList = userDataHandler.getUserEmailsList();
         expect(emailList).toBe('user1@test.com;;user3@test.com');
@@ -55,7 +54,7 @@ describe('UserDataHandler.getUserEmailsList', () => {
             { email: '' },
             { email: 'user3@test.com' },
         ];
-        axios.get.mockResolvedValueOnce({ data: mockUsers });
+        mockServer.mockGet(200, mockUsers);
         await userDataHandler.loadUsers();
         const emailList = userDataHandler.getUserEmailsList();
         expect(emailList).toBe('user1@test.com;;user3@test.com');
