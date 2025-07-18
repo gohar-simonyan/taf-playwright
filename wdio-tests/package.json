@@ -1,0 +1,23 @@
+{
+  "name": "gohar-simonyan",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "wdio run ./wdio.conf.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@wdio/cli": "^8.16.6",
+    "@wdio/cucumber-framework": "^9.18.0",
+    "@wdio/local-runner": "^8.16.6",
+    "@wdio/spec-reporter": "^8.16.3",
+    "assert": "^2.1.0",
+    "chai": "^4.3.8",
+    "chromedriver": "^138.0.3",
+    "wdio-chromedriver-service": "^8.1.1",
+    "words-to-numbers": "^1.5.1"
+  }
+}
