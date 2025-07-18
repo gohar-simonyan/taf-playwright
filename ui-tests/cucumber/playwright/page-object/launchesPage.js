@@ -9,6 +9,10 @@ export class LaunchesPage {
         return this.page.locator('.gridHeader__grid-header--KArbb>div');
     }
 
+    get launchItemName() {
+        return this.page.getByRole('cell').getByRole('link');
+    }
+
     get launchItemNames() {
         return this.page.getByRole('cell').getByRole('link');
     }
@@ -22,7 +26,7 @@ export class LaunchesPage {
     }
 
     get deleteOption() {
-        return this.page.getByText('Delete');
+        return this.page.locator('.hamburgerMenuItem__hamburger-menu-item--oPTFm');
     }
 
     get deleteSubmitButton() {

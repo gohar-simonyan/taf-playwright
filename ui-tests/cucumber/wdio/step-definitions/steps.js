@@ -1,5 +1,5 @@
 import {Given, When, Then} from '@cucumber/cucumber';
-import * as testData from '../../../ui-tests/cucumber/test-data/testData.js';
+import * as testData from '../../test-data/testData.js';
 import PageFactory from '../page-objects/page.factory.js';
 import assert from 'assert';
 

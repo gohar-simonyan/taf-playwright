@@ -41,6 +41,6 @@ export class LaunchesPage {
     }
 
     async openPage() {
-        await browser.url(`${process.env.BASE_USER}launches/all`);
+        await browser.url(`${process.env.BASE_USER_0}launches/all`);
     }
 }

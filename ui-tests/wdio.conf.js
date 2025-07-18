@@ -1,6 +1,6 @@
 export const config = {
     runner: 'local',
-    specs: ['./test/features/*.feature'],
+    specs: ['./cucumber/features/*.feature'],
     services: ['chromedriver'],
     maxInstances: 10,
     capabilities: [{
@@ -13,7 +13,7 @@ export const config = {
     connectionRetryTimeout: 120000,
     connectionRetryCount: 3,
     cucumberOpts: {
-        require: ['./test/step-definitions/**/*.js', './test/hooks/*.js'],
+        require: ['./cucumber/wdio/step-definitions/**/*.js', './cucumber/wdio/hooks/*.js', './cucumber/helpers/*.js'],
         backtrace: false,
         dryRun: false,
         failFast: false,
@@ -27,4 +27,4 @@ export const config = {
         ui: 'bdd',
         timeout: 60000
     }
-}
+};

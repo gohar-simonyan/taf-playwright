@@ -1,5 +1,5 @@
 import { Before, After } from '@wdio/cucumber-framework';
-import LoginPage from "../page-objects/login.page.js";
+import LoginPage from '../page-objects/login.page.js';
 import PageFactory from '../page-objects/page.factory.js';
 import * as dotenv from 'dotenv';
 
