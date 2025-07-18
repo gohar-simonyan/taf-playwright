@@ -1,14 +1,18 @@
-import ApiClient from '../helpers/apiClient.js';
 import {compile} from 'path-to-regexp';
 import {isEmpty} from '../utils/launches.js';
+import {ApiFactory} from '../helpers/apiFactory.js';
+import {config} from '../config/environments.js';
 
 export default class LaunchesClient {
     get = compile('launch/:launchId');
     update = compile('launch/:launchId/update');
+    demoUrl = `${config.BASE_URL}demo/${config.PROJECT_NAME}`;
+    baseUrl = `${config.BASE_URL}${config.PROJECT_NAME}`;
 
     constructor() {
-        this.apiClient = new ApiClient();
-        this.demoApiClient = new ApiClient(true);
+        this.apiClient = ApiFactory.getApiInstance('axios',this.baseUrl);
+        this.apiClientfetch = ApiFactory.getApiInstance('fetch', this.baseUrl);
+        this.demoApiClient = ApiFactory.getApiInstance('axios',this.demoUrl);
     }
 
     async generateLaunches() {
@@ -19,6 +23,13 @@ export default class LaunchesClient {
 
     async getLaunches() {
         const launches = await this.apiClient.get('launch');
+        if(isEmpty(launches)) {
+            throw new Error('Launches not found');
+        } return launches;
+    }
+
+    async getLaunchesFetch() {
+        const launches = await this.apiClientfetch.get('launch');
         if(isEmpty(launches)) {
             throw new Error('Launches not found');
         } return launches;

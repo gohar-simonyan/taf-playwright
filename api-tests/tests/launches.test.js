@@ -1,18 +1,21 @@
 import { expect } from 'chai';
-import ApiClient from '../helpers/apiClient.js';
 import LaunchesClient from '../launches/launchesClient.js';
 import {validateSchema} from '../utils/schemaValidator.js';
 import {launchSchema} from '../schemas/launch.schema.js';
 
 describe('Check launch apis', function() {
-    let apiClient;
     let launchesClient;
 
     before(async function() {
         this.timeout(20000);
-        apiClient = new ApiClient();
-        launchesClient = new LaunchesClient(apiClient);
+        launchesClient = new LaunchesClient();
         await launchesClient.generateLaunches();
+    });
+
+    it('Check launch schema using fetch api client', async function() {
+        const response = await launchesClient.getLaunchesFetch();
+        const errors = validateSchema(response, launchSchema);
+        expect(errors).to.deep.equal([]);
     });
 
     it('Check launch schema', async function() {
