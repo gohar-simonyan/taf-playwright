@@ -2,10 +2,8 @@ import { config } from '../config/environments.js';
 import {logApiDetails} from '../utils/logApiDetails.js';
 
 export default class ApiClientFetch {
-    constructor(useDemo = false) {
-        this.baseURL = useDemo
-            ? `${config.BASE_URL}demo/${config.PROJECT_NAME}`
-            : `${config.BASE_URL}${config.PROJECT_NAME}`;
+    constructor(baseUrl) {
+        this.baseURL = baseUrl;
         this.headers = {
             Authorization: `Bearer ${config.TOKEN}`
         };

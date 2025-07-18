@@ -2,14 +2,12 @@ import ApiClient from './apiClient.js';
 import ApiClientFetch from './apiClientFetch.js';
 
 export class ApiFactory {
-    static getApiInstance(apiClientName) {
+    static getApiInstance(apiClientName, baseURL) {
         switch (apiClientName) {
             case 'axios':
-                return new ApiClient(false);
+                return new ApiClient(baseURL);
             case 'fetch':
-                return new ApiClientFetch(false);
-            case 'demo':
-                return new ApiClient(true);
+                return new ApiClientFetch(baseURL);
             default:
                 throw new Error(`Unknown API Client ${apiClientName}.`);
         }

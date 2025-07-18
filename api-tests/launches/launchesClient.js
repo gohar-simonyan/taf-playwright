@@ -1,15 +1,18 @@
 import {compile} from 'path-to-regexp';
 import {isEmpty} from '../utils/launches.js';
-import {ApiFactory} from '../helpers/pageFactory.js';
+import {ApiFactory} from '../helpers/apiFactory.js';
+import {config} from '../config/environments.js';
 
 export default class LaunchesClient {
     get = compile('launch/:launchId');
     update = compile('launch/:launchId/update');
+    demoUrl = `${config.BASE_URL}demo/${config.PROJECT_NAME}`;
+    baseUrl = `${config.BASE_URL}${config.PROJECT_NAME}`;
 
     constructor() {
-        this.apiClient = ApiFactory.getApiInstance('axios');
-        this.apiClientfetch = ApiFactory.getApiInstance('fetch');
-        this.demoApiClient = ApiFactory.getApiInstance('demo');
+        this.apiClient = ApiFactory.getApiInstance('axios',this.baseUrl);
+        this.apiClientfetch = ApiFactory.getApiInstance('fetch', this.baseUrl);
+        this.demoApiClient = ApiFactory.getApiInstance('axios',this.demoUrl);
     }
 
     async generateLaunches() {
