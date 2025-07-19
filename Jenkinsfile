@@ -45,7 +45,7 @@ pipeline {
                     stage('Install Dependencies') {
                         steps {
                             sh '''
-                            npm ci --prefix ${TEST_SUITE}
+                            npm install --prefix ${TEST_SUITE}
                             '''
                         }
                     }
@@ -60,7 +60,7 @@ pipeline {
                                     '''
                                 } else if (env.TEST_SUITE == "api-tests") {
                                     sh '''
-                                    mocha --parallel tests/**/*.test.js
+                                    npx mocha tests/*.test.js
                                     '''
                                 }
                             }
