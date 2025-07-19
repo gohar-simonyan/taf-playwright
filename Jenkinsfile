@@ -44,9 +44,18 @@ pipeline {
                 stages {
                     stage('Install Dependencies') {
                         steps {
-                            sh '''
-                            npm install --prefix ${TEST_SUITE}
-                            '''
+                            script {
+                                if (env.TEST_SUITE == "ui-tests") {
+                                    sh '''
+                                    npm install
+                                    npx playwright install --with-deps
+                                    '''
+                                } else if (env.TEST_SUITE == "api-tests") {
+                                    sh '''
+                                       npm install
+                                    '''
+                                }
+                            }
                         }
                     }
 
@@ -55,7 +64,6 @@ pipeline {
                             script {
                                 if (env.TEST_SUITE == "ui-tests") {
                                     sh '''
-                                    npx playwright install --with-deps
                                     npx playwright test
                                     '''
                                 } else if (env.TEST_SUITE == "api-tests") {
