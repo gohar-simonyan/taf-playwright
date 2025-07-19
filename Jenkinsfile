@@ -1,6 +1,9 @@
 pipeline {
     agent any
 
+    tools {
+        nodejs 'NodeJS'
+    }
     environment {
         API_BASE_URL = credentials('API_BASE_URL')
         API_TOKEN = credentials('API_TOKEN')
