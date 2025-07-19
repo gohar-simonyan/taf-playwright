@@ -42,35 +42,37 @@ pipeline {
                     }
                 }
                 stages {
-                    stage('Install Dependencies') {
+                    stage('Navigate Suite Directory & Install Dependencies') {
                         steps {
-                            script {
-                                if (env.TEST_SUITE == "ui-tests") {
-                                    sh '''
+                            dir("${env.TEST_SUITE}") {
+                                sh '''
+                                if [ -f package.json ]; then
+                                    echo "Installing dependencies for ${env.TEST_SUITE}"
                                     npm install
+                                if [ "${env.TEST_SUITE}" == "ui-tests" ]; then
                                     npx playwright install --with-deps
-                                    '''
-                                } else if (env.TEST_SUITE == "api-tests") {
-                                    sh '''
-                                       npm install
-                                    '''
-                                }
+                                fi
+                                else
+                                    echo "package.json not found in ${env.TEST_SUITE} directory!"
+                                    exit 1
+                                fi
+                                '''
                             }
                         }
                     }
-
                     stage('Run Tests') {
                         steps {
-                            script {
-                                if (env.TEST_SUITE == "ui-tests") {
-                                    sh '''
+                            dir("${env.TEST_SUITE}") {
+                                sh '''
+                                if [ "${env.TEST_SUITE}" == "ui-tests" ]; then
                                     npx playwright test
-                                    '''
-                                } else if (env.TEST_SUITE == "api-tests") {
-                                    sh '''
+                                elif [ "${env.TEST_SUITE}" == "api-tests" ]; then
                                     npx mocha tests/*.test.js
-                                    '''
-                                }
+                                else
+                                    echo "Unknown test suite: ${env.TEST_SUITE}"
+                                    exit 1
+                                fi
+                                '''
                             }
                         }
                     }
