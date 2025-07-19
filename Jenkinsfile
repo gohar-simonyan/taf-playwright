@@ -42,16 +42,6 @@ pipeline {
                     }
                 }
                 stages {
-                    stage('Set Up Node.js') {
-                        steps {
-                            script {
-                                nodejs('nodejs-20') {
-                                    echo "Node.js is ready"
-                                }
-                            }
-                        }
-                    }
-
                     stage('Install Dependencies') {
                         steps {
                             sh '''
