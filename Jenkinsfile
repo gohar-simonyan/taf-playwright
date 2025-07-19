@@ -60,7 +60,7 @@ pipeline {
                                     '''
                                 } else if (env.TEST_SUITE == "api-tests") {
                                     sh '''
-                                    npx mocha tests/**/*.test.js
+                                    mocha --parallel tests/**/*.test.js
                                     '''
                                 }
                             }
