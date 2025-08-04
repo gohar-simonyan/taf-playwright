@@ -1,7 +1,8 @@
 import { Before, After } from '@wdio/cucumber-framework';
-import LoginPage from '../page-objects/login.page.js';
-import PageFactory from '../page-objects/page.factory.js';
+import LoginPage from '../../page-objects/loginPage.js';
+import PageFactory from '../../page-objects/pageFactory.js';
 import * as dotenv from 'dotenv';
+import { ElementFactory } from '../../page-objects/elementFactory.js';
 
 dotenv.config();
 
@@ -11,11 +12,12 @@ Before(async function () {
         password: process.env.PASSWORD_0,
     };
     await browser.reloadSession();
-    const loginPage = new LoginPage(browser);
+    const elementFactory = new ElementFactory({ browser });
+    const loginPage = new LoginPage(elementFactory);
     await loginPage.openPage();
     await loginPage.login(credentials);
     await browser.pause(2000);
-    this.currentPage = PageFactory.getPageInstance('Launches', browser);
+    this.currentPage = PageFactory.getPageInstance('Launches', { browser });
 });
 
 After(async function () {

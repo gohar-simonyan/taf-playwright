@@ -1,10 +1,10 @@
 import {Given, When, Then} from '@cucumber/cucumber';
 import * as testData from '../../test-data/testData.js';
-import PageFactory from '../page-objects/page.factory.js';
+import PageFactory from '../../page-objects/pageFactory.js';
 import assert from 'assert';
 
 Given('I navigate to {string} page', async function (pageName) {
-    this.currentPage = PageFactory.getPageInstance(pageName, browser);
+    this.currentPage = PageFactory.getPageInstance(pageName, { browser });
     await this.currentPage.openPage();
 });
 
@@ -29,8 +29,8 @@ When('I click on {element}', async function (element) {
 });
 
 When('I reload {string} page', async function (pageName) {
-    this.currentPage = PageFactory.getPageInstance(pageName, browser);
-    await browser.refresh();
+    this.currentPage = PageFactory.getPageInstance(pageName,{ browser });
+    await this.currentPage.reload();
 });
 
 Then('{collection} should equal {string} data', async function (collection, data) {
@@ -43,7 +43,9 @@ Then('{collection} should equal {string} data', async function (collection, data
 Then('{collection} should not include {string} member', async function (collection, member) {
     const collectionLocator = await this.currentPage[collection];
     const memberText = this[member];
-    const actualText = await Promise.all(collectionLocator.map(async (element) => await element.getText()));
+    const actualText = await Promise.all(collectionLocator.map(async (element) => {
+        await element.getText();
+    }));
     const matchingElements = actualText.includes(memberText);
     assert.strictEqual(matchingElements, false, `Expected "${memberText}" not to be included in collection`);
 });
