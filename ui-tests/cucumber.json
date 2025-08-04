@@ -1,6 +1,6 @@
 {
     "default" :{
         "paths":["./cucumber/features/*.feature"],
-        "import": ["./cucumber/steps/*.js", "./cucumber/support/*.js"]
+        "import": ["./cucumber/playwright/steps/*.js", "./cucumber/playwright/hooks/*.js", "./cucumber/helpers/*.js"]
     }
 }

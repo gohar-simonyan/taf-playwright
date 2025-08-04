@@ -2,9 +2,10 @@ import { Before, After } from '@cucumber/cucumber';
 import { chromium } from 'playwright';
 import * as fs from 'fs';
 import path from 'path';
-import { LoginPage } from '../page-object/loginPage.js';
-import { PageFactory } from '../page-object/pageFactory.js';
+import { PageFactory } from '../../page-objects/pageFactory.js';
 import * as dotenv from 'dotenv';
+import LoginPage from '../../page-objects/loginPage.js';
+import { ElementFactory } from '../../page-objects/elementFactory.js';
 
 dotenv.config();
 
@@ -25,7 +26,8 @@ Before(async function () {
     } else {
         this.context = await this.browser.newContext({ baseURL: baseUrl });
         const page = await this.context.newPage();
-        const loginPage = new LoginPage(page);
+        const elementFactory = new ElementFactory({ page });
+        const loginPage = new LoginPage(elementFactory);
         await loginPage.openPage();
         await loginPage.login(credentials);
         await page.waitForLoadState('networkidle');
@@ -33,7 +35,8 @@ Before(async function () {
         await page.close();
     }
     this.page = await this.context.newPage();
-    this.currentPage = PageFactory.getPageInstance('Launches', this.page);
+    const page = this.page;
+    this.currentPage = PageFactory.getPageInstance('Launches', { page });
 });
 
 After(async function () {

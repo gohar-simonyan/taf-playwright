@@ -1,7 +1,7 @@
 import {Given, When, Then} from '@cucumber/cucumber';
 import {expect} from '@playwright/test';
-import * as testData from '../test-data/testData.js';
-import { PageFactory } from '../page-object/pageFactory.js';
+import * as testData from '../../test-data/testData.js';
+import { PageFactory } from '../../page-objects/pageFactory.js';
 
 Given('I navigate to {string} page', async function (pageName) {
     this.currentPage = PageFactory.getPageInstance(pageName, this.page);

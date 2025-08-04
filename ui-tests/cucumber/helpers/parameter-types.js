@@ -4,7 +4,7 @@ import {camelCaseTransformer} from '../utils/utils.js';
 
 defineParameterType({
     name: 'index',
-    regexp: /first|second|third|fourth|fifth/,
+    regexp: /first|second|third|fourth|fifth|sixth|seventh|eighth|ninth/,
     transformer: (index) => wordsToNumbers(index) - 1,
 });
 
